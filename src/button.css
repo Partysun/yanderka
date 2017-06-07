@@ -1,0 +1,109 @@
+button, .btn {
+  transition: gray 0.2s;
+  display: inline-block;
+  padding: 0.6em 1em;
+  background: hsla(31, 15%, 50%, 0.15);
+  color: #999;
+  border: 0;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: 300;
+  line-height: normal;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+}
+
+button:focus, .btn:focus {
+  outline: thin dotted #666;
+  text-decoration:none;
+}
+
+button:active, .btn:active,
+button:focus, .btn:focus,
+button:hover, .btn:hover {
+  border: 0;
+  background: hsla(31, 15%, 50%, 0.25);
+  text-decoration:none;
+  outline: none;
+}
+
+button:disabled, .btn:disabled, button[disabled]:hover {
+  background: #c0c0c0;
+  border-color: #c0c0c0;
+  /*color: #e4e4e4;*/
+  color: #fff;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  font-weight: normal;
+  border: 1px solid transparent;
+  color: #fff;
+  background-color: #34b1ee;
+  background-image: linear-gradient(left bottom,rgba(159,88,150,0) 0,rgba(19, 106, 153, 0.6) 100%);
+}
+
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary:hover {
+  background-color: #36a7de;
+  border: 1px solid #36a7de;
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+.btn-secondary {
+  border: 1px solid transparent;
+  color: #292b2c;
+  background-color: #fff;
+  border-color: #ccc;
+}
+
+.btn-secondary:active,
+.btn-secondary:focus,
+.btn-secondary:hover {
+  background: hsla(31, 15%, 50%, 0.25);
+  border: 1px solid #ccc;
+}
+
+.btn-warning {
+  border: 1px solid transparent;
+  color: #fff;
+  background-color: #f0ad4e;
+  border-color: #f0ad4e;
+}
+
+.btn-warning:active,
+.btn-warning:focus,
+.btn-warning:hover {
+  background: #ec971f;
+  border: 1px solid #ec971f;
+}
+
+.btn-action {
+  background-color: hsl(150, 45%, 50%);
+  color: #fff;
+}
+.btn-action:active,
+.btn-action:focus,
+.btn-action:hover {
+  background-color: hsl(150, 45%, 40%);
+}
+
+.btn__wide {
+  padding-right: 1.5em;
+  padding-left: 1.5em;
+}
+
+.btn-lg {
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1;
+}
