@@ -43,6 +43,81 @@ section header {
   border-bottom: 1px solid #e6ebf1;                                                         
 }   
 
+section header {                                                                            
+  padding: 5px 20px;                                                                          
+}
+
 .streamlabs-settings {
   /*TODO:*/
+}
+
+/*Загрузка*/
+.app-loader {                                                                               
+  height: 100vh;                                                                            
+  display: flex;                                                                            
+  justify-content: center;                                                                  
+  align-items: center;                                                                      
+}
+                                                                                            
+.app-loader-logo {                                                                        
+  width: 2.8em;                                                                           
+  opacity: 0.5;                                                                           
+}                                                                                         
+                                                                                            
+.app-loader-inner {                                                                       
+  display: flex;                                                                          
+  justify-content: center;                                                                
+  align-items: center;                                                                    
+  flex-direction: column;                                                                 
+}                                                                                           
+                                                                                            
+.app-spinner {                                                                              
+  padding-top: 1em;                                                                         
+  color: #ccc;                                                                              
+}                                                                                           
+                                                                                            
+.app-spinner > div {                                                                        
+  width: 12px;                                                                              
+  height: 12px;                                                                             
+}    
+
+/*Login*/
+
+.login-form h2 {
+  margin-bottom: 1em; 
+}
+
+.login-form small {
+  margin-bottom: 2.5em; 
+  font-size: 1em;
+}
+
+input[type="email"] {
+  border: none;
+  background-color: transparent;
+  width: 260px;
+  display: block;
+  text-align: center;
+  font-size: 14px;
+  border-radius: 0;
+  padding: 0;
+  margin: 0 auto;
+  height: 37px;
+  line-height: 27px;
+  max-width: 100%;
+  outline: none;
+  text-align: center;
+  width: 260px;
+  margin: auto;
+  border-bottom: 1px solid #d8d8d8;
+  transition: border-bottom-color 100ms ease-in, color 100ms ease-in;
+  max-width: 100%;
+}
+
+input[type="email"]:hover, input[type="email"]:focus {
+  border-bottom-color: #626262;
+}
+
+input[type="email"]::placeholder {
+  color: #d8d8d8;
 }
