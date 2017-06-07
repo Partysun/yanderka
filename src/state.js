@@ -17,11 +17,17 @@ const user = {
 export const seed = {
   app: {
     version: 0.1,
+    apiUrl: 'https://us-central1-yanderka-f39f7.cloudfunctions.net/actions',
     ui: {
       login: {
         pending: false,
         error: ''
-      } 
+      },
+      streamlabs: {
+        tokenSaved: false,
+        pending: false,
+        error: '',
+      }
     }
   },
   user,

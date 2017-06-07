@@ -1,6 +1,8 @@
 import state, { seed } from './state.js';
 import signals from './signals.js';
 import cloud from './cloud.js';
+import axios from 'axios';
+import 'url-search-params-polyfill';
 
 const userCursor = state.select('user');
 userCursor.select('loading').set(true);
@@ -32,16 +34,11 @@ const login = (e) => {
   });
   const provider = new cloud.auth.GoogleAuthProvider();
   cloud.auth().signInWithPopup(provider).then(function(result) {
-    var token = result.credential.accessToken;
-    var user = result.user;
     state.select('app', 'ui', 'login').merge({
       pending: false,
     });
   }).catch(function(error) {
-    var errorCode = error.code;
     var errorMessage = error.message;
-    var email = error.email;
-    var credential = error.credential;
     state.select('app', 'ui', 'login').merge({
       pending: false,
       error: errorMessage
@@ -67,7 +64,65 @@ const watchOff = () => {
   cloud.database().ref('users').off();
 };
 
+const connectStreamlabs = () => {
+  const streamlabsClientId = 'G5mP8C1oQUavrj7GIl8uxPhswcTRWaigR4VZsO3R';
+  const baseUrl = 'https://streamlabs.com/api/v1.0/authorize?';
+  const redirect_uri = 'https://yanderka-f39f7.firebaseapp.com/oauth/streamlabs';
+  const oauthUrl = `${baseUrl}client_id=${streamlabsClientId}&redirect_uri=${redirect_uri}&response_type=code&scope=legacy.token+donations.read`;
+  window.location.replace(oauthUrl);
+}
+
+const streamlabsSaveToken = async (e) => {
+  const search = e.data; 
+  const streamlabsToken = new URLSearchParams(search).get('code');
+  const uid = cloud.auth().currentUser.uid;
+  const userToken = await cloud.auth().currentUser.getToken();
+  const getTokenUrl = state.get('app', 'apiUrl') + '/getToken';
+  cloud.database().ref('users').child(uid).child('streamlabs').update({access_token: streamlabsToken}).then(() => {
+    axios.get(getTokenUrl,
+    {
+      headers: { 
+        'Content-Type':  'application/json',
+        'Accept':        'application/json',
+        'Authorization': 'Bearer ' + userToken
+      },
+    })
+    .then((response) => {
+      console.log(response.data);
+      state.select('app', 'ui', 'streamlabs').merge({
+        tokenSaved: true,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  });
+}
+
+const apiTest = (e) => {
+  const getTestUrl = state.get('app', 'apiUrl') + '/hello';
+  cloud.auth().currentUser.getToken().then( (token) => 
+    axios.get(getTestUrl,
+    {
+      headers: { 
+        'Content-Type':  'application/json',
+        'Accept':        'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+    })
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+  );
+}
+
 signals.on('user:auth', login);
 signals.on('user:logout', logout);
 signals.on('user:watch', watch);
 signals.on('user:off', watchOff);
+signals.on('user:api:test', apiTest);
+signals.on('user:connect:streamlabs', connectStreamlabs);
+signals.on('user:connect:streamlabs:saveToken', streamlabsSaveToken);
