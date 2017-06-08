@@ -34,6 +34,18 @@ export const seed = {
         }),
         pending: false,
         error: '',
+      },
+      yamoney: {
+        tokenSaved: monkey({
+          cursors: {
+            access_token: ['user', 'yamoney', 'access_token'],
+          },
+          get: (data) => {
+            return !!data.access_token;
+          }
+        }),
+        pending: false,
+        error: ''
       }
     }
   },

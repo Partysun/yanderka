@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { branch } from 'baobab-react/higher-order';   
 import { Route, Redirect } from 'react-router-dom';
 import signals from './signals.js';
+import Yamoney from './settings/yamoney.js';
 import './App.css';
 import './button.css';
 import './streamlab.actions.js';
+import './yamoney.actions.js';
 
 class StreamlabsOauth extends Component {
 
@@ -47,7 +49,6 @@ class App extends Component {
 
   render() {
     const { user, ui } = this.props;
-    console.log('render');
     return (
       <div className='app'>
         <div className='app-inner'>
@@ -120,20 +121,7 @@ class App extends Component {
             </main>                                                                             
           </section>      
           <br />
-          <section className='yandex-settings'>                                                            
-            <header>                                                                            
-              <div className='copy'>                                                            
-                <h2>Настройки Yandex.Денег</h2>                                                            
-              </div>                                                                            
-            </header>                                                                           
-            <main>                                                                              
-              <button                                                                         
-                className='btn-primary'                                                       
-                onClick={() => console.log('connection')}>                                       
-                Подключить Yandex Кошелёк
-              </button>
-            </main>                                                                             
-          </section>
+          <Yamoney ui={ui} />
         </div>
       </div>
     );

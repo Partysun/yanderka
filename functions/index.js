@@ -1,10 +1,9 @@
 const functions = require('firebase-functions');
-const admin = require('firebase-admin');
-admin.initializeApp(functions.config().firebase);
-
+const admin = require('./cloud.js');
 const fetch = require('node-fetch');
 const express = require('express');
 const cors = require('cors')({origin: true});
+const yamoneyRoutes = require('./yamoney.route.js');
 const app = express();
 
 const authenticate = (req, res, next) => {
@@ -23,6 +22,7 @@ const authenticate = (req, res, next) => {
 
 app.use(cors);
 app.use(authenticate);
+app.use('/yamoney', yamoneyRoutes);
 
 const baseStreamlabUrl = 'https://streamlabs.com/api/v1.0';
 const streamlabTokenUrl = baseStreamlabUrl + '/token';

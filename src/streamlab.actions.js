@@ -3,8 +3,6 @@ import state from './state.js';
 import cloud from './cloud.js';
 import axios from 'axios';
 
-const streamlabsBaseUrl = 'https://streamlabs.com/api/v1.0';
-
 const alert = async (e) => {
   const userToken = await cloud.auth().currentUser.getToken();
   const sendAlertUrl = state.get('app', 'apiUrl') + '/sendAlert';
