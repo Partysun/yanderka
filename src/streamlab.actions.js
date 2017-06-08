@@ -1,13 +1,43 @@
 import signals from './signals.js';
 import state from './state.js';
+import cloud from './cloud.js';
 import axios from 'axios';
 
 const streamlabsBaseUrl = 'https://streamlabs.com/api/v1.0';
 
-const alert = (e) => {
-  const token = state.get('user', 'streamlabs', 'access_token');
-  axios.post(streamlabsBaseUrl + '/alerts',
-  {},
+const alert = async (e) => {
+  const userToken = await cloud.auth().currentUser.getToken();
+  const sendAlertUrl = state.get('app', 'apiUrl') + '/sendAlert';
+  axios.post(sendAlertUrl,
+  {
+    type: 'donation',
+    message: 'Check this motherfucker!'
+  },
+  {
+    headers: { 
+      'Content-Type':  'application/json',
+      'Accept':        'application/json',
+      'Authorization': 'Bearer ' + userToken
+    },
+  })
+  .then(function (response) {
+    console.log(response.data);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
+
+const makeDonation = async (e) => {
+  const token = await cloud.auth().currentUser.getToken();
+  const url = state.get('app', 'apiUrl') + '/sendDonation';
+  axios.post(url,
+  {
+    name: 'Юрий',
+    identifier: 'yura@yanderka.ru',
+    amount: '20',
+    message: 'Check this motherfucker!'
+  },
   {
     headers: { 
       'Content-Type':  'application/json',
@@ -24,3 +54,4 @@ const alert = (e) => {
 }
 
 signals.on('streamlabs:alert', alert);
+signals.on('streamlabs:makeDonation', makeDonation);

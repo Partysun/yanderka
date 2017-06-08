@@ -28,7 +28,7 @@ const baseStreamlabUrl = 'https://streamlabs.com/api/v1.0';
 const streamlabTokenUrl = baseStreamlabUrl + '/token';
 const client_id = 'G5mP8C1oQUavrj7GIl8uxPhswcTRWaigR4VZsO3R';
 const client_secret = 'UMWYzx4QHI1TaX0p2u3Am1BMPfcl7HqnHavKiW19';
-const redirect_uri = 'https://yanderka-f39f7.firebaseapp.com/oauth/streamlabs';
+const redirect_uri = 'https://yanderka.ru/oauth/streamlabs';
 
 const authorizationStreamLab = (code) => {
   return new Promise((resolve, rej) => {
@@ -98,6 +98,98 @@ app.get('/getToken', (req, res) => {
       } else {
         res.status(200).json({'status': 'ok', 'access_token': access_token});  
       }
+    }
+  });
+});
+
+const makeStreamlabsAlert = (token, type, message) => {
+  console.log(type, message);
+  return fetch(baseStreamlabUrl + '/alerts', {
+    method: 'POST',
+    body: JSON.stringify({
+      type: 'host', 
+      message: message, 
+      special_text_color: '#199dce'
+    }),
+    headers: { 
+      'Content-Type':  'application/json',
+      'Accept':        'application/json',
+      'Authorization': 'Bearer ' + token
+    }
+  }).then(res => res.json());
+}
+
+
+const makeStreamlabsDonation = (token, name, identifier, amount, message) => {
+  console.log('make donation', name, identifier, amount, message);
+  return fetch(baseStreamlabUrl + '/donations', {
+    method: 'POST',
+    body: JSON.stringify({
+      name: 'Юрий Зацепин', 
+      identifier: identifier, 
+      amount: amount, 
+      currency: 'RUB',
+      message: message
+    }),
+    headers: { 
+      'Content-Type':  'application/json',
+      'Accept':        'application/json',
+      'Authorization': 'Bearer ' + token
+    }
+  }).then(res => res.json());
+}
+
+app.post('/sendAlert', (req, res) => {
+  const uid = req.user.uid;
+  admin.database().ref(`/users/${uid}/streamlabs`).once('value', (snap) => {
+    const { access_token, refresh_token, created_at, expires_in } = snap.val();
+    //TODO: check expired and refresh
+    if (created_at + expires_in * 1000 < new Date().getTime() - 5 * 1000) {
+      refreshToken(snap.val()).then(({access_token, refresh_token}) => {
+        console.log('refreshToken', access_token, refresh_token);
+        saveStreamLabToken(uid, access_token, refresh_token).then(() => {
+          makeStreamlabsAlert(access_token, req.body.type, req.body.message).then(json => {
+            res.status(200).json({'status': 'ok'});  
+          });
+        });
+      }).catch((e) => {res.status(500).json({e})});
+    } else {
+      makeStreamlabsAlert(access_token, req.body.type, req.body.message).then(json => {
+        res.status(200).json({'status': 'ok'});  
+      });
+    }
+  });
+});
+
+app.post('/sendDonation', (req, res) => {
+  const uid = req.user.uid;
+  admin.database().ref(`/users/${uid}/streamlabs`).once('value', (snap) => {
+    const { access_token, refresh_token, created_at, expires_in } = snap.val();
+    if (created_at + expires_in * 1000 < new Date().getTime() - 5 * 1000) {
+      refreshToken(snap.val()).then(({access_token, refresh_token}) => {
+        console.log('refreshToken', access_token, refresh_token);
+        saveStreamLabToken(uid, access_token, refresh_token).then(() => {
+          makeStreamlabsDonation(access_token,
+            req.body.name,
+            req.body.identifier,
+            req.body.amount,
+            req.body.message)
+            .then(json => {
+              console.log('made donation', json);
+              res.status(201).json({'status': 'ok'});  
+            });
+        });
+      }).catch((e) => {res.status(500).json({e})});
+    } else {
+      makeStreamlabsDonation(access_token,
+        req.body.name,
+        req.body.identifier,
+        req.body.amount,
+        req.body.message)
+        .then(json => {
+          console.log('made donation', json);
+          res.status(201).json({'status': 'ok'});  
+        });
     }
   });
 });

@@ -82,7 +82,21 @@ class App extends Component {
               }
             </header>                                                                           
             <main>                                                                              
-              {ui.streamlabs.tokenSaved ||
+              {ui.streamlabs.tokenSaved ? 
+                <div>
+                  <button                                                                         
+                    className='btn-secondary'                                                       
+                    onClick={() => signals.emit('streamlabs:alert')}> 
+                    Отправить тестовое сообщение
+                  </button>
+                  &nbsp;&nbsp;
+                  <button                                                                         
+                    className='btn-secondary'                                                       
+                    onClick={() => signals.emit('streamlabs:makeDonation')}> 
+                    Отправить тестовый донат
+                  </button>
+                </div>
+              :
               <button                                                                         
                 className='btn-primary'                                                       
                 style={{'display': 'flex', 'alignItems': 'center'}}
@@ -94,11 +108,6 @@ class App extends Component {
                 />
               </button>
               }
-              <button                                                                         
-                className='btn-secondary'                                                       
-                onClick={() => signals.emit('streamlabs:alert')}> 
-                Отправить тестовое сообщение
-              </button>
               <Route 
                 path='/oauth/streamlabs'
                 render={({location}) => (

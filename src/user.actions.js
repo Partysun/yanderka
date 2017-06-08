@@ -67,8 +67,8 @@ const watchOff = () => {
 const connectStreamlabs = () => {
   const streamlabsClientId = 'G5mP8C1oQUavrj7GIl8uxPhswcTRWaigR4VZsO3R';
   const baseUrl = 'https://streamlabs.com/api/v1.0/authorize?';
-  const redirect_uri = 'https://yanderka-f39f7.firebaseapp.com/oauth/streamlabs';
-  const oauthUrl = `${baseUrl}client_id=${streamlabsClientId}&redirect_uri=${redirect_uri}&response_type=code&scope=legacy.token+donations.read`;
+  const redirect_uri = 'https://yanderka.ru/oauth/streamlabs';
+  const oauthUrl = `${baseUrl}client_id=${streamlabsClientId}&redirect_uri=${redirect_uri}&response_type=code&scope=donations.read+donations.create+alerts.create`;
   window.location.replace(oauthUrl);
 }
 
