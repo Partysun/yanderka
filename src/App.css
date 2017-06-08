@@ -121,3 +121,19 @@ input[type="email"]:hover, input[type="email"]:focus {
 input[type="email"]::placeholder {
   color: #d8d8d8;
 }
+
+/*labels*/
+.label-success {
+  background-color: #5cb85c;
+}
+
+.label {
+  display: inline;
+  padding: .3em .5em .3em;
+  font-size: 85%;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .25em;
+}

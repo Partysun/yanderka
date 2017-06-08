@@ -65,7 +65,7 @@ const refreshToken = ({refresh_token, expires_in, created_at}) => {
 }
 
 const saveStreamLabToken = (uid, access_token, refresh_token) => {
-  admin.database().ref(`/users/${uid}/streamlabs`).update({
+  return admin.database().ref(`/users/${uid}/streamlabs`).update({
     access_token,
     refresh_token,
     created_at: admin.database.ServerValue.TIMESTAMP,
@@ -76,22 +76,28 @@ const saveStreamLabToken = (uid, access_token, refresh_token) => {
 app.get('/getToken', (req, res) => {
   const uid = req.user.uid;
   admin.database().ref(`/users/${uid}/streamlabs`).once('value', (snap) => {
-    const { access_token, refresh_token } = snap.val();
+    const { access_token, refresh_token, created_at, expires_in } = snap.val();
     if (!access_token && !refresh_token) {
       res.status(404).json({'status': 'not_found', 'message': 'access_token was not found'});  
     }
     if (!refresh_token) {
       authorizationStreamLab(access_token).then(({access_token, refresh_token}) => {
         console.log('authorization', access_token, refresh_token);
-        saveStreamLabToken(uid, access_token, refresh_token);
-        res.status(200).json({'status': 'ok', 'access_token': access_token});  
+        saveStreamLabToken(uid, access_token, refresh_token).then(() => {
+          res.status(201).json({'status': 'ok', 'access_token': access_token});  
+        });
       }).catch((e) => {res.status(500).json({e})});
     } else {
-      refreshToken(snap.val()).then(({access_token, refresh_token}) => {
-        console.log('refreshToken', access_token, refresh_token);
-        saveStreamLabToken(uid, access_token, refresh_token);
+      if (created_at + expires_in * 1000 < new Date().getTime() - 5 * 1000) {
+        refreshToken(snap.val()).then(({access_token, refresh_token}) => {
+          console.log('refreshToken', access_token, refresh_token);
+          saveStreamLabToken(uid, access_token, refresh_token).then(() => {
+            res.status(201).json({'status': 'ok', 'access_token': access_token});  
+          });
+        }).catch((e) => {res.status(500).json({e})});
+      } else {
         res.status(200).json({'status': 'ok', 'access_token': access_token});  
-      }).catch((e) => {res.status(500).json({e})});
+      }
     }
   });
 });

@@ -6,6 +6,27 @@ import './App.css';
 import './button.css';
 import './streamlab.actions.js';
 
+class StreamlabsOauth extends Component {
+
+  componentDidMount() {
+    const { location } = this.props;
+    signals.emit('user:connect:streamlabs:saveToken', location.search);
+  }
+
+  render() {
+    if (this.props.tokenSaved) {
+      return (                                                                              
+        <Redirect to='/' />                                                              
+      )
+    }
+    return (
+      <h2>
+        Настраиваем Streamlabs...
+      </h2>
+    )
+  }
+}
+
 class App extends Component {
 
   componentWillMount() {
@@ -54,8 +75,14 @@ class App extends Component {
               <div className='copy'>                                                            
                 <h2>Настройки Streamlabs.com</h2>                                                            
               </div>                                                                            
+              {ui.streamlabs.tokenSaved &&
+                <div className='actions'>                                                            
+                  <span className='label label-success'>Подключен</span>
+                </div>                                                                            
+              }
             </header>                                                                           
             <main>                                                                              
+              {ui.streamlabs.tokenSaved ||
               <button                                                                         
                 className='btn-primary'                                                       
                 style={{'display': 'flex', 'alignItems': 'center'}}
@@ -66,11 +93,7 @@ class App extends Component {
                   src='https://cdn-images-1.medium.com/fit/c/25/25/1*XhBKvE_pXEEM2pVt2b5jSg.png' alt='логотип streamlabs '
                 />
               </button>
-              <button                                                                         
-                className='btn-secondary'                                                       
-                onClick={() => signals.emit('user:api:test')}> 
-                тест
-              </button>
+              }
               <button                                                                         
                 className='btn-secondary'                                                       
                 onClick={() => signals.emit('streamlabs:alert')}> 
@@ -78,20 +101,12 @@ class App extends Component {
               </button>
               <Route 
                 path='/oauth/streamlabs'
-                render={({location}) => {
-                  signals.emit('user:connect:streamlabs:saveToken', location.search);
-                  if (ui.streamlabs.tokenSaved) {
-                    return (                                                                              
-                      <Redirect to='/' />                                                              
-                    )
-                  }
-                  return (
-                    <h2>
-                      Настраиваем Streamlabs...
-                    </h2>
-                  )
-                  }
-                }
+                render={({location}) => (
+                  <StreamlabsOauth 
+                    tokenSaved={ui.streamlabs.tokenSaved} 
+                    location={location}
+                  />
+                )}
               />
             </main>                                                                             
           </section>      

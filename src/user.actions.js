@@ -73,9 +73,14 @@ const connectStreamlabs = () => {
 }
 
 const streamlabsSaveToken = async (e) => {
+  const uid = cloud.auth().currentUser.uid;
+  const refreshTokenSnap = await cloud.database().ref('users').child(uid).child('streamlabs/refresh_token').once('value');
+  if (refreshTokenSnap && refreshTokenSnap.val()) { return; }
+  state.select('app', 'ui', 'streamlabs').merge({
+    pending: true,
+  });
   const search = e.data; 
   const streamlabsToken = new URLSearchParams(search).get('code');
-  const uid = cloud.auth().currentUser.uid;
   const userToken = await cloud.auth().currentUser.getToken();
   const getTokenUrl = state.get('app', 'apiUrl') + '/getToken';
   cloud.database().ref('users').child(uid).child('streamlabs').update({access_token: streamlabsToken}).then(() => {
@@ -90,11 +95,12 @@ const streamlabsSaveToken = async (e) => {
     .then((response) => {
       console.log(response.data);
       state.select('app', 'ui', 'streamlabs').merge({
-        tokenSaved: true,
+        pending: false,
       });
     })
     .catch((error) => {
       console.log(error);
+      state.select('app', 'ui', 'streamlabs').merge({error,});
     });
   });
 }

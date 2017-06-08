@@ -24,7 +24,14 @@ export const seed = {
         error: ''
       },
       streamlabs: {
-        tokenSaved: false,
+        tokenSaved: monkey({
+          cursors: {
+            refresh_token: ['user', 'streamlabs', 'refresh_token'],
+          },
+          get: (data) => {
+            return !!data.refresh_token;
+          }
+        }),
         pending: false,
         error: '',
       }
