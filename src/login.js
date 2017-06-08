@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { branch } from 'baobab-react/higher-order';   
 import { 
   Redirect,
@@ -18,7 +18,7 @@ const Login = ({user, ui}) => {
     <div className='app-loader'>
       <div className='app-loader-inner login-form'>
         <h2>Войти</h2>
-        <small>Для регистрации или входа, напишите ваш адрес электронной почты</small>
+        <small>Добро пожаловать!</small>
         {pending 
         ? <Spinner name="double-bounce" /> 
         :
