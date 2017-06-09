@@ -23,16 +23,26 @@ class YamoneyOAuth extends Component {
   }
 }
 
-const Yamoney = ({ui}) => {
+const Yamoney = ({user, ui}) => {
   return (
     <section className='yandex-settings'>                                                            
       <header>                                                                            
         <div className='copy'>                                                            
           <h2>Настройки Yandex.Денег</h2>                                                            
         </div>                                                                            
-        {ui.yamoney.tokenSaved &&
+        {!ui.yamoney.tokenSaved &&
+        <div className='actions'>                                                            
+          <span className='label '>Не подключен</span>
+        </div>                                                                            
+        }
+        {ui.yamoney.tokenSaved && ui.yamoney.notifyTested &&
         <div className='actions'>                                                            
           <span className='label label-success'>Подключен</span>
+        </div>                                                                            
+        }
+        {ui.yamoney.tokenSaved && !ui.yamoney.notifyTested &&
+        <div className='actions'>                                                            
+          <span className='label label-warning'>В процессе</span>
         </div>                                                                            
         }
       </header>                                                                           
@@ -42,8 +52,32 @@ const Yamoney = ({ui}) => {
           className='btn-primary'                                                       
           onClick={() => signals.emit('yamoney:connect')}>                                       
           Подключить Yandex Кошелёк
-        </button>
+        </button>}
+        {ui.yamoney.tokenSaved && ui.yamoney.notifyTested &&
+          <small>Яндекс Деньги настроены! И теперь если, кто то сделает донат, то мы сообщим об этом вам.</small>
         }
+        {ui.yamoney.tokenSaved && !ui.yamoney.notifyTested && 
+          <div>
+            <p>Осталось совсем чуть чуть ;)</p>
+            <p>Настроим http уведомления о платежах в вашем Yandex кошельке.</p>
+            <p>Для этого скопируйте ссылку</p>
+              <input 
+                className='notification-link'
+                type='text'
+                readOnly
+                onFocus={event => event.target.select()}
+                value={`https://us-central1-yanderka-f39f7.cloudfunctions.net/hooks/${user.hook_token}`} />
+            <p>и добавьте её в настройке кошелька &nbsp;
+              <a 
+                href='https://money.yandex.ru/myservices/online.xml'
+                rel='noopener noreferrer'
+                target='_blank'>
+                по этой ссылке
+              </a>            
+            </p>
+            <hr />
+            <small>{ui.yamoney.notifyTested ? 'Уведомления настроены!' : 'Ждём тестовое уведомление...'}</small>
+          </div>}
         <Route 
           path='/oauth/yandexmoney'
           render={({location}) => (

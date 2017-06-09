@@ -121,7 +121,7 @@ class App extends Component {
             </main>                                                                             
           </section>      
           <br />
-          <Yamoney ui={ui} />
+          <Yamoney ui={ui} user={user} />
         </div>
       </div>
     );

@@ -44,6 +44,14 @@ export const seed = {
             return !!data.access_token;
           }
         }),
+        notifyTested: monkey({
+          cursors: {
+            notifyTested: ['user', 'yamoney', 'notifyTested'],
+          },
+          get: (data) => {
+            return !!data.notifyTested;
+          }
+        }),
         pending: false,
         error: ''
       }

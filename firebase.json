@@ -2,6 +2,7 @@
  "hosting": {
     "public": "build",
     "rewrites": [
+      {"source": "/hooks/**", "function":"hooks"},
       {
         "source": "**",
         "destination": "/index.html"
