@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, Link } from 'react-router-dom';
 import signals from './../signals.js';
 
 class YamoneyOAuth extends Component {
@@ -54,7 +54,13 @@ const Yamoney = ({user, ui}) => {
           Подключить Yandex Кошелёк
         </button>}
         {ui.yamoney.tokenSaved && ui.yamoney.notifyTested &&
-          <small>Яндекс Деньги настроены! И теперь если, кто то сделает донат, то мы сообщим об этом вам.</small>
+          <div>
+            <small>Яндекс Деньги настроены! И теперь если, кто то сделает донат, то мы сообщим об этом вам.</small>
+            <br />
+            <Link exact to={`/donation/${user.uid}`}>
+              Персональная страница донатов
+            </Link>
+          </div>
         }
         {ui.yamoney.tokenSaved && !ui.yamoney.notifyTested && 
           <div>

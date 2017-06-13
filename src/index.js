@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { 
   BrowserRouter as Router,
   Redirect,
-  Route
+  Route,
+  Switch
 } from 'react-router-dom';
 import { root } from 'baobab-react/higher-order';                                           
 import { branch } from 'baobab-react/higher-order';   
@@ -13,6 +14,7 @@ import Login from './login.js';
 import Spinner from 'react-spinkit';
 import cloud from './cloud.js';
 import state from './state.js';
+import Donation from './donation.js';
 import './user.actions.js';
 import './index.css';
 
@@ -58,11 +60,17 @@ const Index = ({user}) => {
           render={props => (
             <Login user={user} />
           )} />  
-        <ProtectedRoute                                                                              
-          path='/'                                                                     
-          component={App} />
-        <ProtectedRoute 
-          component={NoMatch} />
+        <Switch>
+          <Route                                                                              
+            path='/donation/:user'                                                                     
+            component={Donation}
+          />
+          <ProtectedRoute                                                                              
+            path='/'                                                                     
+            component={App} />
+          <ProtectedRoute 
+            component={NoMatch} />
+        </Switch>
       </div>
     </Router>
   )

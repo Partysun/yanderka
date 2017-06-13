@@ -26,7 +26,6 @@ const getAccessToken = (req, res, next) => {
       next(err);
     }
     const access_token = data.access_token;
-    console.log(access_token, err, data);
     if (!access_token) {
       res.status(200).json({status: 'warning', message: 'Regenerate token code'});
     }
