@@ -16,6 +16,8 @@
     "url-search-params-polyfill": "^1.3.0"
   },
   "devDependencies": {
+    "dreamjs": "^0.1.8",
+    "firebase-admin": "^5.0.0",
     "react-scripts": "1.0.7"
   },
   "scripts": {
