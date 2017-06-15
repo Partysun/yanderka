@@ -4,10 +4,12 @@ const webhooksRoutes = require('./webhooks.route.js');
 const yaaccountRoutes = require('./yaaccount.route.js');
 const actionsRoutes = require('./actions.route.js');
 const yandexMoney = require('yandex-money-sdk');
+const makeDonationRouter = require('./make-donation.route.js');
 
 exports.actions = functions.https.onRequest(actionsRoutes);
 exports.hooks = functions.https.onRequest(webhooksRoutes);
 exports.yaaccount = functions.https.onRequest(yaaccountRoutes);
+exports.makeDonation = functions.https.onRequest(makeDonationRouter);
 
 exports.yamoneyAccountInfo = functions.database.
     ref('/users/{userId}/yamoney/access_token').onWrite(event => {
