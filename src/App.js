@@ -3,10 +3,12 @@ import { branch } from 'baobab-react/higher-order';
 import { Route, Redirect } from 'react-router-dom';
 import signals from './signals.js';
 import Yamoney from './settings/yamoney.js';
+import DonationsList from './donations-list.js';
 import './App.css';
 import './button.css';
 import './streamlab.actions.js';
 import './yamoney.actions.js';
+import './donations.actions.js';
 
 class StreamlabsOauth extends Component {
 
@@ -33,10 +35,12 @@ class App extends Component {
 
   componentWillMount() {
     signals.emit('user:watch');  
+    signals.emit('donations:watch');  
   }
 
   componentWillUnmount() {
     signals.emit('user:off');  
+    signals.emit('donations:off');  
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -48,7 +52,7 @@ class App extends Component {
   }
 
   render() {
-    const { user, ui } = this.props;
+    const { user, donations, ui } = this.props;
     return (
       <div className='app'>
         <div className='app-inner'>
@@ -68,6 +72,17 @@ class App extends Component {
             </header>                                                                           
             <main>                                                                              
               Электронная почта - {user.email}
+            </main>                                                                             
+          </section>      
+          <br />
+          <section className='donations-stats'>                                                            
+            <header>                                                                            
+              <div className='copy'>                                                            
+                <h2>Крайнии донаты</h2>                                                            
+              </div>                                                                            
+            </header>                                                                           
+            <main>                                                                              
+              <DonationsList donations={donations} />
             </main>                                                                             
           </section>      
           <br />
@@ -130,5 +145,6 @@ class App extends Component {
 
 export default branch({                                                                  
   user: ['user'],                                                                           
+  donations: ['donations'],                                                                           
   ui: ['app', 'ui']
 }, App);  

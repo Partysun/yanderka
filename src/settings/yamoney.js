@@ -57,7 +57,7 @@ const Yamoney = ({user, ui}) => {
           <div>
             <small>Яндекс Деньги настроены! И теперь если, кто то сделает донат, то мы сообщим об этом вам.</small>
             <br />
-            <Link exact to={`/donation/${user.uid}`}>
+            <Link to={`/donation/${user.uid}`}>
               Персональная страница донатов
             </Link>
           </div>

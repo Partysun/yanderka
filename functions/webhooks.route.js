@@ -20,7 +20,25 @@ const verifyToken = (token) => {
   });
 }
 
-const completeNotificationSetting = (uid, res) => {
+const processNotification = (notification, uid) => {
+  return new Promise((resolve, reject) => {
+    const donationsRef = admin.database().ref('donations');
+    donationsRef.child(uid).child(notification.label).update({
+      datetime: notification.datetime,
+      sender: notification.sender || '',
+      amount: notification.amount,
+      email: notification.email,
+      unaccepted: notification.unaccepted,
+      withdraw_amount: notification.withdraw_amount,
+      notification_type: notification.notification_type
+    }, (error) => {
+      if (error) { reject(error); }
+      resolve();
+    });
+  });
+}
+
+const completeNotificationSetting = (uid) => {
   return new Promise((resolve, reject) => {
     const ref = admin.database().ref('users');
     ref.child(uid).child('yamoney/notifyTested').set(true, (error) => {
@@ -38,7 +56,6 @@ const hooks = (req, res) => {
   verifyToken(token).then(json => {
     if (json.uid !== null) {
       console.log('hook activated for user with id ' + json.uid);
-      console.log(req.body);
       if (req.body.test_notification) {
         console.log('this is the test notification');
         completeNotificationSetting(json.uid).then(() => {
@@ -47,7 +64,12 @@ const hooks = (req, res) => {
           res.status(500).json({'error': e});
         });
       } else {
-        res.status(200).json(json);
+        processNotification(req.body, json.uid).then(() => {
+          res.status(200).json(json);
+        })
+        .catch(e => {
+          res.status(500).json({'error': e});
+        });
       }
     } else {
       console.log('hook activated, but user not found with token ' + token);

@@ -2,6 +2,12 @@ import Baobab from 'baobab';
 import cloud from './cloud.js';
 const monkey = Baobab.monkey;
 
+const donations = {
+  balance: 0,
+  items: {},
+  loading: true,
+}
+
 const user = {
   uid: '',
   name: '',
@@ -58,6 +64,7 @@ export const seed = {
     }
   },
   user,
+  donations,
   notifications: {},
 }
 
