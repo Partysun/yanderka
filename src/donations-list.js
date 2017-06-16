@@ -24,7 +24,7 @@ const DonationsList = ({donations}) => {
   return (
     <div className='donations-list'>
       { donations.loading ? 'Загрузка' : 
-        Object.keys(donations.items).map((key, index) => (
+        Object.keys(donations.items).slice(0, 10).reverse().map((key, index) => (
           <DonationItem
             key={key}
             index={index}

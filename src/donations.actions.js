@@ -51,7 +51,7 @@ const get = (e) => {
   const uid = cloud.auth().currentUser.uid;
   cloud.database().ref('donations').child(uid)
     .orderByChild('datetime')
-    .limitToLast(perPage).once('value', (snapshot) => {
+    .limitToLast(perPage * page).once('value', (snapshot) => {
     snapshot.forEach(data => {
       const { amount } = data.val();
       if (amount) {

@@ -36,7 +36,7 @@ class App extends Component {
 
   componentWillMount() {
     signals.emit('user:watch');  
-    signals.emit('donations:get', {page: 2, perPage: 10});  
+    signals.emit('donations:get', {page: 1, perPage: 10});  
     signals.emit('donations:getStats');  
   }
 
@@ -93,7 +93,7 @@ class App extends Component {
           <section className='donations-last'>                                                            
             <header>                                                                            
               <div className='copy'>                                                            
-                <h2>Крайнии донаты</h2>                                                            
+                <h2>Крайние донаты</h2>                                                            
               </div>                                                                            
             </header>                                                                           
             <main>                                                                              

@@ -173,8 +173,6 @@ input[type="email"]::placeholder {
   width: 42px;
   height: 42px;
   background-size: cover;
-  /* center the image vertically and horizontally */
   background-position: center;
-  /* round the edges to a circle with border radius 1/2 container size */
   border-radius: 50%;
 }
