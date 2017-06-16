@@ -8,6 +8,7 @@
     "baobab-react": "^2.1.2",
     "firebase": "^4.1.1",
     "moment": "^2.18.1",
+    "numeral": "^2.0.6",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-router-dom": "^4.1.1",

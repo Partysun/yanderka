@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { branch } from 'baobab-react/higher-order';   
 import { Route, Redirect } from 'react-router-dom';
+import numeral from 'numeral';
 import signals from './signals.js';
 import Yamoney from './settings/yamoney.js';
 import DonationsList from './donations-list.js';
@@ -35,17 +36,19 @@ class App extends Component {
 
   componentWillMount() {
     signals.emit('user:watch');  
-    signals.emit('donations:watch');  
+    signals.emit('donations:get', {page: 2, perPage: 10});  
+    signals.emit('donations:getStats');  
   }
 
   componentWillUnmount() {
     signals.emit('user:off');  
-    signals.emit('donations:off');  
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     if (Object.is(nextProps.user, this.props.user)
-      && Object.is(nextProps.ui, this.props.ui)) {
+      && Object.is(nextProps.ui, this.props.ui) 
+        && Object.is(nextProps.donations, this.props.donations))
+      {
       return false;  
     }
     return true;
@@ -59,7 +62,10 @@ class App extends Component {
           <section className='profile-settings'>                                                            
             <header>                                                                            
               <div className='copy'>                                                            
-                <h2>Профиль</h2>                                                            
+                <div className='avatar'>
+                  <img src={user.photoURL} alt='avatar' />
+                  <h2>{user.displayName}</h2>
+                </div>
               </div>                                                                            
               <div className='actions'>
                 <button                                                                         
@@ -70,12 +76,21 @@ class App extends Component {
                 </button>
               </div>
             </header>                                                                           
-            <main>                                                                              
-              Электронная почта - {user.email}
-            </main>                                                                             
           </section>      
           <br />
           <section className='donations-stats'>                                                            
+             { donations.statsLoading ? <main>Загрузка статистики...</main> : 
+            <main>                                                                              
+              Баланс - {numeral(donations.balance).format('0,0.00')} руб.
+              <br />
+              За неделю - {numeral(donations.week).format('0,0.00')} руб.
+              <br />
+              За день - {numeral(donations.day).format('0,0.00')} руб.
+            </main>                                                                             
+              }
+          </section>      
+          <br />
+          <section className='donations-last'>                                                            
             <header>                                                                            
               <div className='copy'>                                                            
                 <h2>Крайнии донаты</h2>                                                            

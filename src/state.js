@@ -4,6 +4,8 @@ const monkey = Baobab.monkey;
 
 const donations = {
   balance: 0,
+  week: 0,
+  day: 0,
   items: {},
   loading: true,
 }

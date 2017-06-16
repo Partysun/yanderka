@@ -21,7 +21,7 @@ dream.customType('amount', function (helper) {
 });
 
 dream.customType('datetime', function (helper) {
-  return helper.chance.date({year: 2017}) 
+  return helper.chance.date({year: 2017});
 });
 
 dream.customType('notification-type', /(card-incoming|p2p-incoming)/);
@@ -43,7 +43,8 @@ dream
     unaccepted: 'bool',
     withdraw_amount: 'amount'
   })
-  .generateRnd(305)
+  .generateRnd(1)
   .output((err, result) => {
-    pushFixtureToFirebase(result);
+    console.log(result);
+    //pushFixtureToFirebase(result);
   });
