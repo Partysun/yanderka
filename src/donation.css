@@ -1,0 +1,124 @@
+.donation {
+  min-width: 430px;
+  position: relative;
+  padding: 4rem;
+  background-color: #3f8b9f;
+  height: 100vh;
+
+  @media screen and (max-width:$breakpoint-tablet) {
+    margin: 0 auto;
+    min-width: 200px;
+  }
+}
+
+.donation .panel {
+  max-width: 430px;
+  margin: 0 auto 20px;
+  border-radius: 8px;
+  padding: 2em;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px 0 rgba(49,49,93,.1), 0 1px 2px 0 rgba(0,0,0,.08);
+  background-color: white;
+  transition: box-shadow .2s ease-in-out;
+}
+
+.donation h2 {
+  margin-bottom: 2em; 
+  color: #424770;
+}
+
+.donation h3 {
+  margin-top: 0; 
+  margin-bottom: 2em; 
+}
+
+.donation form {
+  margin-bottom: 1em;
+}
+
+.donation h2 {
+  color: black;
+  text-shadow: none;
+}
+
+.donation fieldset {
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+  padding: 0;
+  margin-bottom: 0.75em;
+}
+
+.donation label {
+  font-size: 1em;
+  text-align: left;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.donation input {
+  margin-top: 0.25em;
+  vertical-align: middle; 
+  outline: none;
+}
+
+.donation input[type=text], .donation input[type=number], .donation input[type=email], .donation input[type=tel], .donation input[type=password], .donation textarea {
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding: 0.5em 0.6em;
+  transition: all 0.2s ease;
+  background-color: #fff;
+  border: 1px solid #bfbfbf;
+  display: block;
+  font-size: 0.9em;
+  font-weight: 200;
+  width: 100%;
+}
+
+.donation .btn-primary {
+  margin-left: 2px;
+}
+
+.auth-error-message {
+  margin: 15px 0;
+}
+
+.resetLink {
+  color: rgba(0,0,0,0.8);
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+.errorInput {
+  border: 1px solid #d64242 !important; 
+}
+
+.shakable {
+  animation: shake 0.32s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}

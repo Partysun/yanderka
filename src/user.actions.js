@@ -22,6 +22,8 @@ cloud.auth().onAuthStateChanged((user) => {
       snapshot.forEach(data => {
         _user[`${data.getKey()}`] = data.val();
       });
+      _user['photoURL'] = cloud.auth().currentUser.providerData[0].photoURL;
+      _user['displayName'] = cloud.auth().currentUser.providerData[0].displayName;
       userCursor.merge(_user);
     });
   }

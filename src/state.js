@@ -2,6 +2,14 @@ import Baobab from 'baobab';
 import cloud from './cloud.js';
 const monkey = Baobab.monkey;
 
+const donations = {
+  balance: 0,
+  week: 0,
+  day: 0,
+  items: {},
+  loading: true,
+}
+
 const user = {
   uid: '',
   name: '',
@@ -34,10 +42,31 @@ export const seed = {
         }),
         pending: false,
         error: '',
+      },
+      yamoney: {
+        tokenSaved: monkey({
+          cursors: {
+            access_token: ['user', 'yamoney', 'access_token'],
+          },
+          get: (data) => {
+            return !!data.access_token;
+          }
+        }),
+        notifyTested: monkey({
+          cursors: {
+            notifyTested: ['user', 'yamoney', 'notifyTested'],
+          },
+          get: (data) => {
+            return !!data.notifyTested;
+          }
+        }),
+        pending: false,
+        error: ''
       }
     }
   },
   user,
+  donations,
   notifications: {},
 }
 
