@@ -35,6 +35,7 @@ exports.yamoneyAccountInfo = functions.database.
       });
     });
 
+//TODO: cleanup _yaaccounts user info
 exports.cleanupUserData = functions.auth.user().onDelete(event => {
   const uid = event.data.uid;
   return admin.database().ref(`/users/${uid}`).remove();
