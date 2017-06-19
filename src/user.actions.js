@@ -9,10 +9,10 @@ userCursor.select('loading').set(true);
 
 cloud.auth().onAuthStateChanged((user) => {
   if (!user) {
-    console.log('user out');
+    //console.log('user out');
     userCursor.select('loading').set(false);
   } else {
-    console.log('user in');
+    //console.log('user in');
     let _user = {};
     _user.uid = user.uid;
     _user.email = user.email;
