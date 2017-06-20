@@ -59,7 +59,8 @@ const AppHeader = ({user}) => (
   </section>
 )
 
-const App = ({ user, donations, ui }) => (
+const App = ({ user, donations, ui }) => {
+  return (
   <div className='app'>
     <div className='app-inner'>
       <AppNavigation />
@@ -81,7 +82,8 @@ const App = ({ user, donations, ui }) => (
       />
     </div>
   </div>
-);
+  )
+};
 
 const enhance = compose(
   pure,
@@ -93,11 +95,12 @@ const enhance = compose(
   lifecycle({
     componentDidMount() {
       signals.emit('user:watch');  
-      signals.emit('donations:get', {page: 1, perPage: 10});  
+      signals.emit('donations:watch', {page: 1, perPage: 10});  
       signals.emit('donations:getStats');  
     },
     componentWillUnmount() {
       signals.emit('user:off');  
+      signals.emit('donations:off');  
     }
   })
 );

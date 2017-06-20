@@ -62,13 +62,14 @@ const get = (e) => {
   });
 }
 
-const watch = () => {
-  const uid = state.get('user', 'uid');
+const watch = (e) => {
   if (!cloud.auth().currentUser) { return; }
+  donationsCursor.select('loading').set(true);
+  const { page, perPage } = e.data;
+  const uid = cloud.auth().currentUser.uid;
   cloud.database().ref('donations').child(uid)
     .orderByChild('datetime')
-    .limitToLast(10).on('value', (snapshot) => {
-    donationsCursor.select('loading').set(true);
+    .limitToLast(perPage * page).on('value', (snapshot) => {
     snapshot.forEach(data => {
       const { amount } = data.val();
       if (amount) {

@@ -26,3 +26,7 @@
   font-weight: 400;
   text-transform: uppercase;
 }
+
+.donations-stats-inner div p {
+  margin: 0;
+}
