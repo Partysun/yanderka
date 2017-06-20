@@ -36,7 +36,7 @@ const watchOff = () => {
 };
 
 const firetest = async () => {
-  const userToken = await cloud.auth().currentUser.getToken();
+  const userToken = await cloud.auth().currentUser.getIdToken();
   const sendAlertUrl = state.get('app', 'apiUrl') + '/firetestDonation';
   axios.post(sendAlertUrl,
   {},

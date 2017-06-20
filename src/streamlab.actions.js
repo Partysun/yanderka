@@ -4,7 +4,7 @@ import cloud from './cloud.js';
 import axios from 'axios';
 
 const alert = async (e) => {
-  const userToken = await cloud.auth().currentUser.getToken();
+  const userToken = await cloud.auth().currentUser.getIdToken();
   const sendAlertUrl = state.get('app', 'apiUrl') + '/sendAlert';
   axios.post(sendAlertUrl,
   {
@@ -27,7 +27,7 @@ const alert = async (e) => {
 }
 
 const makeDonation = async (e) => {
-  const token = await cloud.auth().currentUser.getToken();
+  const token = await cloud.auth().currentUser.getIdToken();
   const url = state.get('app', 'apiUrl') + '/sendDonation';
   axios.post(url,
   {

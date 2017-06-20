@@ -83,7 +83,7 @@ const streamlabsSaveToken = async (e) => {
   });
   const search = e.data; 
   const streamlabsToken = new URLSearchParams(search).get('code');
-  const userToken = await cloud.auth().currentUser.getToken();
+  const userToken = await cloud.auth().currentUser.getIdToken();
   const getTokenUrl = state.get('app', 'apiUrl') + '/getToken';
   cloud.database().ref('users').child(uid).child('streamlabs').update({access_token: streamlabsToken}).then(() => {
     axios.get(getTokenUrl,
@@ -109,7 +109,7 @@ const streamlabsSaveToken = async (e) => {
 
 const apiTest = (e) => {
   const getTestUrl = state.get('app', 'apiUrl') + '/hello';
-  cloud.auth().currentUser.getToken().then( (token) => 
+  cloud.auth().currentUser.getIdToken().then( (token) => 
     axios.get(getTestUrl,
     {
       headers: { 

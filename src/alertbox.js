@@ -16,7 +16,7 @@ class Alertbox extends Component {
 
   startTimer() {
     console.log(this.timer);
-    if (this.timer == 0) {
+    if (this.timer === 0) {
       this.timer = setInterval(this.countDown, 1000);
     }
   }
@@ -27,7 +27,7 @@ class Alertbox extends Component {
       seconds: seconds,
     });
     
-    if (seconds == 0) { 
+    if (seconds === 0) { 
       clearInterval(this.timer);
       this.timer = 0;
       this.setState({seconds: 3})

@@ -28,6 +28,39 @@
   font-weight: 400;                                                                         
 }       
 
+a, a:hover {
+  text-decoration: none;
+}
+
+.app-navigation {
+  display: flex;
+  margin-bottom: 1em; 
+}
+
+.app-navigation a { 
+  outline: none;
+  margin-right: 1em;
+  font-weight: 300;
+  color: #424770;
+}
+
+.app-navigation a:hover {
+  color: #32325d;
+}
+
+.app-navigation a.selected {
+  font-weight: 700;
+  color: #3297d3
+}
+
+.app-navigation a.selected:hover,
+.app-navigation a.selected:focus,
+.app-navigation a.selected:active {
+  font-weight: 700;
+  color: #3297d3
+}
+
+
 section {                                                                                   
   display: flex;                                                                            
   flex-direction: column;                                                                   

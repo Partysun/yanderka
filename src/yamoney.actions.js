@@ -5,7 +5,7 @@ import axios from 'axios';
 import 'url-search-params-polyfill';
 
 const connect = async (e) => {
-  const userToken = await cloud.auth().currentUser.getToken();
+  const userToken = await cloud.auth().currentUser.getIdToken();
   const getTokenUrl = state.get('app', 'apiUrl') + '/yamoney/buildObtainTokenUrl';
   axios.get(getTokenUrl,
     {
@@ -32,7 +32,7 @@ const saveToken = async (e) => {
   state.select('app', 'ui', 'yamoney').merge({ pending: true });
   const search = e.data; 
   const code = new URLSearchParams(search).get('code');
-  const token = await cloud.auth().currentUser.getToken();
+  const token = await cloud.auth().currentUser.getIdToken();
   const url = state.get('app', 'apiUrl') + '/yamoney/getAccessToken';
   axios.post(url,
   { code: code },
