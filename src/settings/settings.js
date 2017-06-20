@@ -32,6 +32,8 @@ const Settings = ({user, ui}) => (
   <div>
     <AlertboxSettings user={user} />
     <br />
+    <Yamoney ui={ui} user={user} />
+    <br />
     <section className='streamlabs-settings'>                                                            
       <header>                                                                            
         <div className='copy'>                                                            
@@ -81,8 +83,6 @@ const Settings = ({user, ui}) => (
         />
       </main>                                                                             
     </section>
-    <br />
-    <Yamoney ui={ui} user={user} />
   </div>
 )
 

@@ -20,8 +20,10 @@
   },
   "devDependencies": {
     "dreamjs": "^0.1.8",
+    "enzyme": "^2.8.2",
     "firebase-admin": "^5.0.0",
-    "react-scripts": "1.0.7"
+    "react-scripts": "1.0.7",
+    "react-test-renderer": "^15.6.1"
   },
   "scripts": {
     "start": "react-scripts start",

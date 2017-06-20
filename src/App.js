@@ -14,6 +14,7 @@ import {
 import signals from './signals.js';
 import Stats from './stats/stats.js';
 import Settings from './settings/settings.js';
+import WelcomeMessage from './welcome-message.js';
 import './App.css';
 import './button.css';
 import './streamlab.actions.js';
@@ -60,6 +61,17 @@ const AppHeader = ({user}) => (
 )
 
 const App = ({ user, donations, ui }) => {
+  if (donations.loading) {
+    return (
+      <div className='app'>
+        <div className='app-inner'>
+          <AppNavigation />
+          <AppHeader user={user} />
+          <h2>Загрузка...</h2>
+        </div>
+      </div>
+    )
+  }
   return (
   <div className='app'>
     <div className='app-inner'>
@@ -70,7 +82,9 @@ const App = ({ user, donations, ui }) => {
         path='/'                                                                     
         exact
         render={() => (
-          <Stats donations={donations} />
+          Object.keys(donations.items).length > 0 
+            ? <Stats donations={donations} />
+              : <WelcomeMessage />
         )}
       />
       <Route                                                                              
