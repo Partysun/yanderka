@@ -15,6 +15,7 @@ import Spinner from 'react-spinkit';
 import cloud from './cloud.js';
 import state from './state.js';
 import Donation from './donation.js';
+import Alertbox from './alertbox.js';
 import './user.actions.js';
 import './index.css';
 
@@ -64,6 +65,10 @@ const Index = ({user}) => {
           <Route                                                                              
             path='/donation/:user'                                                                     
             component={Donation}
+          />
+          <Route                                                                              
+            path='/alertbox/:user'                                                                     
+            component={Alertbox}
           />
           <ProtectedRoute                                                                              
             path='/'                                                                     

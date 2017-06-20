@@ -28,6 +28,7 @@ const processNotification = (notification, uid) => {
       sender: notification.sender || '',
       amount: notification.amount,
       email: notification.email,
+      showed: false,
       unaccepted: notification.unaccepted,
       withdraw_amount: notification.withdraw_amount,
       notification_type: notification.notification_type

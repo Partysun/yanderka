@@ -1,6 +1,7 @@
 const admin = require('./cloud.js');
 const fetch = require('node-fetch');
 const express = require('express');
+const Chance = require('chance');
 const cors = require('cors')({origin: true});
 const yamoneyRoutes = require('./yamoney.route.js');
 const app = express();
@@ -191,6 +192,28 @@ app.post('/sendDonation', (req, res) => {
           res.status(201).json({'status': 'ok'});  
         });
     }
+  });
+});
+
+app.post('/firetestDonation', (req, res) => {
+  const uid = req.user.uid;
+  const chance = new Chance();
+  const testDonate = {
+    amount: chance.integer({min: 5, max: 200}) + '.00',
+    comment: chance.paragraph({sentences: 1}),
+    datetime: new Date().toISOString(),
+    email: chance.email(),
+    nickname: chance.first(),
+    notification_type:'card-incoming',
+    sender:'',
+    uid:'ogHbKJsPF4MCiG9LDV8q7HsiPUY2',
+    unaccepted: false,
+    showed: false,
+    withdraw_amount:'5.00',
+    test_donation: true
+  }
+  admin.database().ref('donations').child(uid).push(testDonate).then((snap) => {
+    res.status(200).json({'key': snap.getKey()});  
   });
 });
 
