@@ -10,7 +10,7 @@ const offsetTime = (timeStr) => {
 };
 
 const DonationItem = ({donation, index}) => (
-  <FadeIn duration='1s' timingFunction='ease-in' as='div'>
+  <FadeIn duration='0.7s' timingFunction='ease-in' as='div'>
     <div className='donations-item'>
       <div className='donations-item-index'>{index + 1}</div>
       <div className='donations-item-detail'>
