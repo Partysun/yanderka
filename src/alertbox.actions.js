@@ -2,11 +2,16 @@ import state from './state.js';
 import signals from './signals.js';
 import cloud from './cloud.js';
 import axios from 'axios';
+const alertItemsCursor = state.select('donations', 'alertItems');
 
 const toggleDonation = (e) => {
   const key = e.data;
   const uid = cloud.auth().currentUser.uid;
-  console.log(key);
+  const donationCur = alertItemsCursor.select({key: key});
+  if (donationCur.solvedPath) {
+    const index = donationCur.solvedPath[2];
+    alertItemsCursor.splice([index, 1]);
+  }
   cloud.database().ref('donations')
     .child(uid).child(key).update({showed: true});
 }
@@ -20,15 +25,10 @@ const watch = () => {
       const { amount } = snap.val();
       if (amount) {
         const _donate = Object.assign({}, { key: snap.getKey() }, snap.val());
-        state.select('app', 'lastDonation').set(_donate);
+        alertItemsCursor.push(_donate);
       }
   });
-
-  cloud.database().ref('donations').child(uid)
-    .orderByChild('showed').equalTo(false)
-    .limitToLast(1).on('child_removed', (snap) => {
-      state.select('app', 'lastDonation').unset();
-  });
+  
 }
 
 const watchOff = () => {

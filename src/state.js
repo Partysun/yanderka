@@ -8,6 +8,7 @@ const donations = {
   day: 0,
   items: {},
   loading: true,
+  alertItems: []
 }
 
 const user = {
