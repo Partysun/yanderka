@@ -21,7 +21,7 @@ const connect = async (e) => {
     })
     .catch((error) => {
       console.log(error);
-      state.select('app', 'ui', 'yamoney').merge({error,});
+      state.select('app', 'ui', 'yamoney').merge({error, pending: false});
     });
 };
 
@@ -32,7 +32,7 @@ const saveToken = async (e) => {
   state.select('app', 'ui', 'yamoney').merge({ pending: true });
   const search = e.data; 
   const code = new URLSearchParams(search).get('code');
-  const token = await cloud.auth().currentUser.getIdToken();
+  const userToken = await cloud.auth().currentUser.getIdToken();
   const url = state.get('app', 'apiUrl') + '/yamoney/getAccessToken';
   axios.post(url,
   { code: code },
@@ -40,16 +40,14 @@ const saveToken = async (e) => {
     headers: { 
       'Content-Type':  'application/json',
       'Accept':        'application/json',
-      'Authorization': 'Bearer ' + token
+      'Authorization': 'Bearer ' + userToken
     },
   })
   .then((response) => {
-    console.log(response.data);
     state.select('app', 'ui', 'yamoney').merge({pending: false});
   })
   .catch((error) => {
-    console.log(error);
-    state.select('app', 'ui', 'yamoney').merge({error,});
+    state.select('app', 'ui', 'yamoney').merge({error, pending: false});
   });
 };
 

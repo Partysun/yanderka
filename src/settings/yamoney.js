@@ -5,6 +5,7 @@ import signals from './../signals.js';
 class YamoneyOAuth extends Component {
 
   componentDidMount() {
+    alert('yamoney auth');
     const { location } = this.props;
     signals.emit('yamoney:connect:saveToken', location.search);
   }
@@ -12,7 +13,7 @@ class YamoneyOAuth extends Component {
   render() {
     if (this.props.tokenSaved) {
       return (                                                                              
-        <Redirect to='/' />                                                              
+        <Redirect to='/dashboard' />                                                              
       )
     }
     return (
