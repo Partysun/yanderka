@@ -13,6 +13,7 @@ const DonationItem = ({donation, index}) => (
   <FadeIn duration='0.7s' timingFunction='ease-in' as='div'>
     <div className='donations-item'>
       <div className='donations-item-index'>{index + 1}</div>
+      {donation.test_donation && <div className='donations-item-testlabel'>Тестовый донат</div>}
       <div className='donations-item-detail'>
         <div className='donations-item-detail-amount'>{donation.amount} руб.</div>
         <div>{donation.nickname} | {donation.email}</div>
