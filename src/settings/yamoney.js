@@ -34,11 +34,16 @@ const Yamoney = ({user, ui}) => {
         </button>}
         {ui.yamoney.tokenSaved && ui.yamoney.notifyTested &&
           <div>
-            <small>Яндекс Деньги настроены! И теперь если, кто то сделает донат, то мы сообщим об этом вам.</small>
+            <h4>Персональная ссылка для пожертвований</h4>
+            <input 
+              className='notification-link'
+              type='text'
+              readOnly
+              onFocus={event => event.target.select()}
+              value={`https://yanderka.ru/donation/${user.uid}`} />
             <br />
-            <Link to={`/donation/${user.uid}`}>
-              Персональная страница донатов
-            </Link>
+            <br />
+            Скопируйте эту ссылку и поделитесь ей со своей аудиторией.
           </div>
         }
         {ui.yamoney.tokenSaved && !ui.yamoney.notifyTested && 
