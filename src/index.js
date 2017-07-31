@@ -15,6 +15,7 @@ import Spinner from 'react-spinkit';
 import cloud from './cloud.js';
 import state from './state.js';
 import Donation from './donation.js';
+import Landing from './landing.js'
 import Alertbox from './alertbox.js';
 import './user.actions.js';
 import './index.css';
@@ -76,6 +77,11 @@ const Index = ({user, match}) => {
           )} />  
         <Switch>
           <Route                                                                              
+            path='/'                                                                     
+            exact
+            component={Landing}
+          />
+          <Route                                                                              
             path='/donation/:user'                                                                     
             component={Donation}
           />
@@ -84,9 +90,9 @@ const Index = ({user, match}) => {
             component={Alertbox}
           />
           <ProtectedRoute                                                                              
-            path='/'                                                                     
+            path='/dashboard'                                                                     
             component={App} />
-          <ProtectedRoute 
+          <Route 
             component={NoMatch} />
         </Switch>
       </div>

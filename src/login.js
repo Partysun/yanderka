@@ -10,7 +10,7 @@ const Login = ({user, ui}) => {
   const { pending } = ui;
   if (user.loggedin) {                                                                  
     return (                                                                              
-      <Redirect to={'/'} />                                                              
+      <Redirect to={'/dashboard'} />                                                              
     )                                                                                     
   }     
 
