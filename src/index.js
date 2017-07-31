@@ -15,7 +15,9 @@ import Spinner from 'react-spinkit';
 import cloud from './cloud.js';
 import state from './state.js';
 import Donation from './donation.js';
+import Landing from './landing.js'
 import Alertbox from './alertbox.js';
+import YamoneyOAuth from './yandexmoney-oauth.js';
 import './user.actions.js';
 import './index.css';
 
@@ -40,7 +42,7 @@ const NoMatch = () => (
   </div>
 )
 
-const Index = ({user, match}) => {
+const Index = ({user}) => {
   const isAlertbox = /alertbox/.test(window.location.pathname);
   if (isAlertbox) {
     return (
@@ -63,7 +65,7 @@ const Index = ({user, match}) => {
       </div>
     ); 
   }
-  
+  //console.log(window.location.search); 
 
   return (
     <Router>
@@ -76,6 +78,11 @@ const Index = ({user, match}) => {
           )} />  
         <Switch>
           <Route                                                                              
+            path='/'                                                                     
+            exact
+            component={Landing}
+          />
+          <Route                                                                              
             path='/donation/:user'                                                                     
             component={Donation}
           />
@@ -84,9 +91,12 @@ const Index = ({user, match}) => {
             component={Alertbox}
           />
           <ProtectedRoute                                                                              
-            path='/'                                                                     
+            path='/dashboard'                                                                     
             component={App} />
-          <ProtectedRoute 
+          <ProtectedRoute
+            path='/oauth/yandexmoney'
+            component={YamoneyOAuth} />
+          <Route 
             component={NoMatch} />
         </Switch>
       </div>

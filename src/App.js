@@ -27,13 +27,13 @@ const AppNavigation = ({user}) => (
     <Link 
       activeClassName='selected'
       exact
-      to='/'>
+      to='/dashboard/'>
       Статистика
     </Link>
     <Link 
       activeClassName='selected'
       exact
-      to='/settings'>
+      to='/dashboard/settings'>
       Настройки
     </Link>
   </div>
@@ -79,7 +79,7 @@ const App = ({ user, donations, ui }) => {
       <AppHeader user={user} />
       <br />
       <Route                                                                              
-        path='/'                                                                     
+        path='/dashboard'                                                                     
         exact
         render={() => (
           Object.keys(donations.items).length > 0 
@@ -88,7 +88,7 @@ const App = ({ user, donations, ui }) => {
         )}
       />
       <Route                                                                              
-        path='/settings'                                                                     
+        path='/dashboard/settings'                                                                     
         exact
         render={() => (
           <Settings user={user} ui={ui} />

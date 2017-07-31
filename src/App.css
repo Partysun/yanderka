@@ -87,6 +87,7 @@ section header {
 
 /*Загрузка*/
 .app-loader {                                                                               
+  background-color: white;
   height: 100vh;                                                                            
   display: flex;                                                                            
   justify-content: center;                                                                  
