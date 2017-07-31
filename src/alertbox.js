@@ -37,11 +37,11 @@ class Alertbox extends Component {
   }
 
   componentWillMount() {
-    signals.emit('alertbox:watch')
+    signals.emit('alertbox:watch', this.props.match.params.token);
   }
 
   componentWillUnmount() {
-    signals.emit('alertbox:off')
+    signals.emit('alertbox:off');
   }
 
   componentWillReceiveProps(nextProps) {
@@ -55,12 +55,14 @@ class Alertbox extends Component {
   }
 
   render() {
+    const isChrome = !!window.chrome && !!window.chrome.webstore;
     const { donate } = this.props;
+    const classAlertbox = `alertbox ${isChrome && 'tested'}`;
     if (!donate) {
-      return <div className='alertbox'></div>
+      return <div className={classAlertbox}></div>
     }
     return (
-      <div className='alertbox'>
+      <div className={classAlertbox}>
         <div className='alertbox-inner'>
           <span className='alertbox-nickname'>
             {donate.nickname}

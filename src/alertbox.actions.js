@@ -16,18 +16,29 @@ const toggleDonation = (e) => {
     .child(uid).child(key).update({showed: true});
 }
 
-const watch = () => {
-  const uid = cloud.auth().currentUser.uid;
+const watch = (e) => {
+  if (cloud.auth().currentUser) {
+    const uid = cloud.auth().currentUser.uid;
 
-  cloud.database().ref('donations').child(uid)
-    .orderByChild('showed').equalTo(false)
-    .limitToLast(1).on('child_added', (snap) => {
-      const { amount } = snap.val();
-      if (amount) {
-        const _donate = Object.assign({}, { key: snap.getKey() }, snap.val());
-        alertItemsCursor.push(_donate);
-      }
-  });
+    cloud.database().ref('donations').child(uid)
+      .orderByChild('showed').equalTo(false)
+      .limitToLast(1).on('child_added', (snap) => {
+        const { amount } = snap.val();
+        if (amount) {
+          const _donate = Object.assign({}, { key: snap.getKey() }, snap.val());
+          alertItemsCursor.push(_donate);
+        }
+    });
+  } else {
+    const token = e.data;
+    cloud.auth().signInWithCustomToken(token).then(() => {
+      watch();
+    }).catch((error) => {
+      //TODO:
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
+  }
   
 }
 

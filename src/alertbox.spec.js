@@ -29,9 +29,6 @@ describe('Alertbox', () => {
 
   it('should render without crashing', () => {
     expect(wrapper).to.have.length(1);
-  });
-
-  it('should render without crashing', () => {
     console.log(wrapper.find('.alertbox').debug());
   });
 

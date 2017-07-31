@@ -40,7 +40,19 @@ const NoMatch = () => (
   </div>
 )
 
-const Index = ({user}) => {
+const Index = ({user, match}) => {
+  const isAlertbox = /alertbox/.test(window.location.pathname);
+  if (isAlertbox) {
+    return (
+      <Router>
+        <Route                                                                              
+          path='/alertbox/:token'                                                                     
+          component={Alertbox}
+        />
+      </Router>
+    );
+  }
+
   if (user.loading) {
     return (
       <div className='app-loader'>
@@ -51,6 +63,7 @@ const Index = ({user}) => {
       </div>
     ); 
   }
+  
 
   return (
     <Router>
@@ -67,7 +80,7 @@ const Index = ({user}) => {
             component={Donation}
           />
           <Route                                                                              
-            path='/alertbox/:user'                                                                     
+            path='/alertbox/:token'                                                                     
             component={Alertbox}
           />
           <ProtectedRoute                                                                              

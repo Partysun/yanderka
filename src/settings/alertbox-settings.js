@@ -15,10 +15,10 @@ const AlertboxSettings = ({user}) => (
           type='text'
           readOnly
           onFocus={event => event.target.select()}
-          value={`https://yanderka.ru/alertbox/${user.uid}`} />
+          value={`https://yanderka.ru/alertbox/${user.custom_token}`} />
         <button                                                                         
           className='btn-action'                                                       
-          onClick={() => window.open(`/alertbox/${user.uid}`, 'newwindow', 'width=300, height=250')}> 
+          onClick={() => window.open(`/alertbox/${user.custom_token}`, 'newwindow', 'width=300, height=250')}> 
           Открыть окно оповещений
         </button>
       </div>
