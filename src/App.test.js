@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import App from './App';
 import tree, { seed } from './state.js';
 import { root } from 'baobab-react/higher-order';                                           

@@ -1,0 +1,20 @@
+.alertbox {
+  background: rgb(0, 255, 0);
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  vertical-align: center;
+  justify-content: center;
+}
+
+.alertbox-inner {
+  flex: 1;
+  width: 80%;
+  font-size: 48px;
+  margin: auto;
+  padding: 2em;
+}
+
+.alertbox-inner span {
+  margin-right: 0.5em;
+}

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { branch } from 'baobab-react/higher-order';   
 import signals from './signals.js';
+import 'font-awesome/css/font-awesome.css';
+import './alertbox.css';
 
 const alertVisibleTime = 3000;
 
@@ -30,7 +32,7 @@ class Alertbox extends Component {
     if (seconds === 0) { 
       clearInterval(this.timer);
       this.timer = 0;
-      this.setState({seconds: 3})
+      this.setState({seconds: alertVisibleTime / 1000})
     }
   }
 
@@ -55,12 +57,24 @@ class Alertbox extends Component {
   render() {
     const { donate } = this.props;
     if (!donate) {
-      return <div></div>
+      return <div className='alertbox'></div>
     }
     return (
-      <div>{donate.nickname} donate {donate.amount}
-        <br />
-        {this.state.seconds} 
+      <div className='alertbox'>
+        <div className='alertbox-inner'>
+          <span className='alertbox-nickname'>
+            {donate.nickname}
+          </span> 
+          <span className='alertbox-action'>
+            дарит 
+          </span> 
+          <span className='alertbox-amount'>
+            {donate.amount}
+          </span>
+          <i className='fa fa-rub' aria-hidden='true' />
+          <br />
+          {this.state.seconds} 
+        </div>
       </div>
     )
   }
