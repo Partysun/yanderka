@@ -2,28 +2,6 @@ import React, { Component } from 'react';
 import { Route, Redirect, Link } from 'react-router-dom';
 import signals from './../signals.js';
 
-class YamoneyOAuth extends Component {
-
-  componentDidMount() {
-    alert('yamoney auth');
-    const { location } = this.props;
-    signals.emit('yamoney:connect:saveToken', location.search);
-  }
-
-  render() {
-    if (this.props.tokenSaved) {
-      return (                                                                              
-        <Redirect to='/dashboard' />                                                              
-      )
-    }
-    return (
-      <h2>
-        Настраиваем Yandex Money...
-      </h2>
-    )
-  }
-}
-
 const Yamoney = ({user, ui}) => {
   return (
     <section className='yandex-settings'>                                                            
@@ -85,15 +63,6 @@ const Yamoney = ({user, ui}) => {
             <hr />
             <small>{ui.yamoney.notifyTested ? 'Уведомления настроены!' : 'Ждём тестовое уведомление...'}</small>
           </div>}
-        <Route 
-          path='/oauth/yandexmoney'
-          render={({location}) => (
-            <YamoneyOAuth 
-              tokenSaved={ui.yamoney.tokenSaved} 
-              location={location}
-            />
-          )}
-        />
       </main>                                                                             
     </section>
   )
