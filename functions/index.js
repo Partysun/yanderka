@@ -40,3 +40,16 @@ exports.cleanupUserData = functions.auth.user().onDelete(event => {
   const uid = event.data.uid;
   return admin.database().ref(`/users/${uid}`).remove();
 });
+
+exports.createCustomToken = functions.auth.user().onCreate(event => {
+  const uid = event.data.uid;
+  admin.auth().createCustomToken(uid)
+  .then(function(customToken) {
+    admin.database().ref('users').child(uid).update({custom_token: customToken}).then(() => {
+      console.log('Custome token created!');
+    });
+  })
+  .catch(function(error) {
+    console.log('Error creating custom token:', error);
+  });
+});
