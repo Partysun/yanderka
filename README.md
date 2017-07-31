@@ -4,8 +4,8 @@
 
 ### Tasks: 
 
-- [ ] Пометить тестовые донаты
-- [ ] Сделать для страницы донатов inputbox, как у alertbox
+- [x] Пометить тестовые донаты
+- [x] Сделать для страницы донатов inputbox, как у alertbox
 - [ ] Fix Streamalert oauth problem after changing routes 
 
 ### Roadmap:
