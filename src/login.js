@@ -17,8 +17,8 @@ const Login = ({user, ui}) => {
   return (
     <div className='app-loader'>
       <div className='app-loader-inner login-form'>
-        <h2>Войти</h2>
-        <small>Добро пожаловать!</small>
+        <h2>Войти в панель управления</h2>
+        <small>Яндэра поможет заработать немного деньжат на стримах!</small>
         {pending 
         ? <Spinner name="double-bounce" /> 
         :
