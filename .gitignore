@@ -22,3 +22,4 @@ yarn-debug.log*
 yarn-error.log*
 
 yanderka-f39f7-firebase-adminsdk.json
+functions/service-account.json
