@@ -1,6 +1,8 @@
 const _ = require('lodash');
 const express = require('express');
 const admin = require('./cloud.js');
+const makeStreamlabsDonation = require('./streamlabs.js').makeStreamlabsDonation;
+const getStreamlabsToken = require('./streamlabs.js').getStreamlabsToken;
 const app = express();
 
 const verifyToken = (token) => {
@@ -34,7 +36,7 @@ const processNotification = (notification, uid) => {
       notification_type: notification.notification_type
     }, (error) => {
       if (error) { reject(error); }
-      resolve();
+      resolve({name: notification.sender, identifier: notification.email, amount: notification.amount});
     });
   });
 }
@@ -65,7 +67,11 @@ const hooks = (req, res) => {
           res.status(500).json({'error': e});
         });
       } else {
-        processNotification(req.body, json.uid).then(() => {
+        processNotification(req.body, json.uid).then(donation => {
+          getStreamlabsToken(json.uid).then((strealabsToken) => {
+            //FIXME: add message data
+            makeStreamlabsDonation(strealabsToken, donation.name, donation.identifier, donation.amount, '');
+          });
           res.status(200).json(json);
         })
         .catch(e => {

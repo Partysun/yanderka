@@ -1,3 +1,4 @@
+const functions = require('firebase-functions');
 const admin = require('./cloud.js');
 const fetch = require('node-fetch');
 const express = require('express');
@@ -27,8 +28,8 @@ app.use('/yamoney', yamoneyRoutes);
 
 const baseStreamlabUrl = 'https://streamlabs.com/api/v1.0';
 const streamlabTokenUrl = baseStreamlabUrl + '/token';
-const client_id = 'G5mP8C1oQUavrj7GIl8uxPhswcTRWaigR4VZsO3R';
-const client_secret = 'UMWYzx4QHI1TaX0p2u3Am1BMPfcl7HqnHavKiW19';
+const client_id = functions.config().streamlabs.id;
+const client_secret = functions.config().streamlabs.secret;
 const redirect_uri = 'https://yanderka.ru/oauth/streamlabs';
 
 const authorizationStreamLab = (code) => {
@@ -126,7 +127,7 @@ const makeStreamlabsDonation = (token, name, identifier, amount, message) => {
   return fetch(baseStreamlabUrl + '/donations', {
     method: 'POST',
     body: JSON.stringify({
-      name: 'Юрий Зацепин', 
+      name: name, 
       identifier: identifier, 
       amount: amount, 
       currency: 'RUB',

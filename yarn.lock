@@ -6303,6 +6303,16 @@ tr46@~0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/tr46/-/tr46-0.0.3.tgz#8184fd347dac9cdc185992f3a6622e14b9d9ab6a"
 
+translitit-cyrillic-russian-to-latin@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/translitit-cyrillic-russian-to-latin/-/translitit-cyrillic-russian-to-latin-0.1.1.tgz#cc541a6b4a12bc013d5d9482c84da3415a7d98a1"
+  dependencies:
+    translitit-engine "0.1.1"
+
+translitit-engine@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/translitit-engine/-/translitit-engine-0.1.1.tgz#8fbfbf21d85ac08312b63825e720766d9add3bf8"
+
 traverse@~0.6.6:
   version "0.6.6"
   resolved "https://registry.yarnpkg.com/traverse/-/traverse-0.6.6.tgz#cbdf560fd7b9af632502fed40f918c157ea97137"

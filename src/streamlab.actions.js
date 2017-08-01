@@ -1,7 +1,8 @@
+import axios from 'axios';
+import translit from 'translitit-cyrillic-russian-to-latin';
 import signals from './signals.js';
 import state from './state.js';
 import cloud from './cloud.js';
-import axios from 'axios';
 
 const alert = async (e) => {
   const userToken = await cloud.auth().currentUser.getIdToken();
@@ -31,10 +32,10 @@ const makeDonation = async (e) => {
   const url = state.get('app', 'apiUrl') + '/sendDonation';
   axios.post(url,
   {
-    name: 'Юрий',
+    name: translit('Юрий'),
     identifier: 'yura@yanderka.ru',
     amount: '20',
-    message: 'Check this motherfucker!'
+    message: translit('Привет бабушка')
   },
   {
     headers: { 

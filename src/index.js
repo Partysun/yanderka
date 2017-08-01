@@ -18,6 +18,7 @@ import Donation from './donation.js';
 import Landing from './landing.js'
 import Alertbox from './alertbox.js';
 import YamoneyOAuth from './yandexmoney-oauth.js';
+import StreamlabsOauth from './streamlabs-oauth.js';
 import './user.actions.js';
 import './index.css';
 
@@ -96,6 +97,9 @@ const Index = ({user}) => {
           <ProtectedRoute
             path='/oauth/yandexmoney'
             component={YamoneyOAuth} />
+          <ProtectedRoute 
+            path='/oauth/streamlabs'
+            component={StreamlabsOauth} />
           <Route 
             component={NoMatch} />
         </Switch>
