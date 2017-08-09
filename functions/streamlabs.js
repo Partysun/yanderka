@@ -47,7 +47,6 @@ const makeStreamlabsDonation = (token, name, identifier, amount, message) => {
 }
 
 const getStreamlabsToken = (uid) => {
-  const uid = req.user.uid;
   return new Promise((resolve, reject) => {
     admin.database().ref(`/users/${uid}/streamlabs`).once('value', (snap) => {
       const { access_token, refresh_token, created_at, expires_in } = snap.val();
